@@ -1,5 +1,8 @@
 require 'gosu'
 
+##
+# Une carte a un nom et une image associée. Elles sont joué lors des parties.
+# Classe abstraite, une carte est comparée à une autre carte pour savoir qui l'emporte.
 class Carte
 
     attr_reader :nom
@@ -19,6 +22,8 @@ class Carte
 
 end
 
+##
+# Les cartes simple ont une valeur associée, celle avec la plus grande valeur l'emporte.
 class CarteSimple < Carte
 
     attr_reader :valeur

@@ -22,6 +22,12 @@ class Jeu
         @fenetre.show
     end
 
+    def afficheResultat(str)
+        puts "Nb points gagnés"
+        puts str
+        return self
+    end
+
     def traiteSignal(sig)
         
     end

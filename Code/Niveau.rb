@@ -4,6 +4,7 @@ class Niveau
 
     attr :nomNiveau
     attr :regle, false  #méthode de type 'typeCartes, typeCartes => Integer'
+    attr_reader :duree
     attr :typeCartes, false
     attr :mainJoueur, false
     attr :mainAdv, false
@@ -17,8 +18,14 @@ class Niveau
         @regle = regle
         @typeCartes = typeCartes
 
-        @mainJoueur = mainJoueur
-        @mainAdv = mainAdv
+        if mainAdv.length == mainJoueur.length
+            @mainJoueur = mainJoueur
+            @mainAdv = mainAdv
+            @duree = mainAdv.length
+        else
+            raise "taille des mains différentes"
+        end
+
     end
 
     def to_s
@@ -30,10 +37,14 @@ class Niveau
         return "Niveau : #{nomNiveau} \nRègle : #{regle.name} (avec #{typeCartes})\nMain du joueur : \n"+strMainJoueur+"\nMain de l'adversaire : \n"+strMainAdv
     end
 
+    ##
+    # Renvoie le résultat du coup joué en comparant les cartes en fonction de la règle
     def calculeResultat(carteJoueur,carteAdv)
         @regle.call(carteJoueur,carteAdv)
     end
 
+    ##
+    # donne leur mains au joueur et à l'adversaire
     def donneMains(joueur,adversaire)
         joueur.prendMain(mainJoueur)
         adversaire.prendMain(mainAdv)
@@ -43,7 +54,7 @@ class Niveau
 end
 
 ##
-# Prend des CarteSimple
+# Prend des CarteSimple et les compare
 def regleSimple(carteJoueur,carteAdv)
     if carteJoueur < carteAdv
         return -1
